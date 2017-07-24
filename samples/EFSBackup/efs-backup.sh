@@ -67,8 +67,10 @@ if [ ! -d /mnt/backups/efsbackup-logs ]; then
   echo "sudo chmod 700 /mnt/backups/efsbackup-logs"
   sudo chmod 700 /mnt/backups/efsbackup-logs
 fi
-echo "sudo rm /tmp/efs-backup.log"
-sudo rm /tmp/efs-backup.log
+if [ -f /tmp/efs-backup.log ]
+  echo "sudo rm /tmp/efs-backup.log"
+  sudo rm /tmp/efs-backup.log
+fi
 echo "sudo rsync -ah --stats --delete --numeric-ids --log-file=/tmp/efs-backup.log /backup/ /mnt/backups/$efsid/$interval.0/"
 sudo rsync -ah --stats --delete --numeric-ids --log-file=/tmp/efs-backup.log /backup/ /mnt/backups/$efsid/$interval.0/
 rsyncStatus=$?
